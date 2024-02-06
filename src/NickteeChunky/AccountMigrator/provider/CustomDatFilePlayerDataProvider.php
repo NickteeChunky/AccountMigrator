@@ -34,12 +34,12 @@ final class CustomDatFilePlayerDataProvider implements PlayerDataProvider{
     }
 
     public function handleOldPlayerData(string $name, string $xuid) : void{
-        $this->saveData($name, (new CompoundTag())->setString(Player::TAG_LAST_KNOWN_XUID, $xuid));
+        $this->saveData($name, (new CompoundTag())->setString(Player::TAG_LAST_KNOWN_XUID, $xuid)); // TODO: improve method of mapping ign to xuid
         rename($this->getPlayerDataPath($name), $this->getPlayerDataPath($name, true));
     }
 
-    public function hasData(string $name, bool $old = true) : bool{
-        return file_exists($this->getPlayerDataPath($name)) || ($old && file_exists($this->getPlayerDataPath($name, true)));
+    public function hasData(string $name) : bool{
+        return file_exists($this->getPlayerDataPath($name)) || file_exists($this->getPlayerDataPath($name, true));
     }
 
     public function loadData(string $name, bool $old = false) : ?CompoundTag{
