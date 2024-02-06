@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AccountMigrator\src\NickteeChunky\AccountMigrator;
+namespace NickteeChunky\AccountMigrator;
 
 use AccountMigrator\src\NickteeChunky\AccountMigrator\provider\CustomDatFilePlayerDataProvider;
 use pocketmine\event\EventPriority;
