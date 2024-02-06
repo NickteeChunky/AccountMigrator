@@ -8,8 +8,5 @@ This plugin stores player data using XUID (Xbox user ID) instead of usernames wh
 When a player's data is saved, their old data (if any) is cleared to only store the matching XUID then moved to an the players/old folder.
 A new file is saved using the XUID (instead of the name) which is then loaded instead.
 
-### Technicalities
-- Server::hasOfflinePlayerData() will return true after a player changed their name.
-
 ### Disclaimer
 This plugin has not been thoroughly tested and should probably not be used for production just yet, submit an issue if you run into any problems.

@@ -13,6 +13,7 @@ use pocketmine\player\Player;
 use pocketmine\player\PlayerDataSaveException;
 use pocketmine\plugin\PluginBase;
 use pocketmine\timings\Timings;
+use pocketmine\YmlServerProperties;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\Filesystem\Path;
@@ -47,9 +48,7 @@ class Loader extends PluginBase
             Timings::$syncPlayerDataSave->time(function () use ($xuid, $ev): void {
                 $name = $ev->getPlayerName();
                 try {
-                    if (!$this->playerDataProvider->hasData($xuid)) {
-                        $this->playerDataProvider->handleOldPlayerData($name, $xuid);
-                    }
+                    $this->playerDataProvider->updateXUID($name, $xuid);
                     $this->playerDataProvider->saveData($xuid, $ev->getSaveData());
                 } catch (PlayerDataSaveException $e) {
                     $this->getLogger()->critical($this->getServer()->getLanguage()->translate(KnownTranslationFactory::pocketmine_data_saveError($name, $e->getMessage())));
@@ -57,5 +56,11 @@ class Loader extends PluginBase
                 }
             });
         }, EventPriority::HIGHEST, $this);
+    }
+
+    public function onDisable(): void
+    {
+        // close sessions before plugin is disabled so event is listened to
+        $this->getServer()->getNetwork()->getSessionManager()->close($this->getServer()->getConfigGroup()->getPropertyString(YmlServerProperties::SETTINGS_SHUTDOWN_MESSAGE, "Server closed"));
     }
 }

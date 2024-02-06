@@ -33,9 +33,12 @@ final class CustomDatFilePlayerDataProvider implements PlayerDataProvider{
         rename($path, $path . '.bak');
     }
 
-    public function handleOldPlayerData(string $name, string $xuid) : void{
+    public function updateXUID(string $name, string $xuid) : void{
         $this->saveData($name, (new CompoundTag())->setString(Player::TAG_LAST_KNOWN_XUID, $xuid)); // TODO: improve method of mapping ign to xuid
-        rename($this->getPlayerDataPath($name), $this->getPlayerDataPath($name, true));
+        $path = $this->getPlayerDataPath($name);
+        if(file_exists($path)){
+            rename($path, $this->getPlayerDataPath($name, true));
+        }
     }
 
     public function hasData(string $name) : bool{
