@@ -19,21 +19,6 @@ use Symfony\Component\Filesystem\Path;
 class Loader extends PluginBase
 {
 
-    /*
-     * player1 logs on
-     * data fetched using "player1" if no data for 1
-     * player1 logs off
-     * player1 data set to 1
-     * player1 data removed
-     *
-     * player1 renames to player2
-     *
-     *
-     * finish this plugin some day, i will likely have to create a database to match all the names to xuids for Server::getOfflinePlayerData()
-     * or actually i could just keep the old data since it stores the xuid anyway but that's increased complexity
-     */
-
-
     private CustomDatFilePlayerDataProvider $playerDataProvider;
 
     /**
