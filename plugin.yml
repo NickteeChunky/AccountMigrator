@@ -1,0 +1,6 @@
+name: AccountMigrator
+main: NickteeChunky\AccountMigrator\Loader
+version: 1.0.0
+author: NickteeChunky
+api: 5.0.0
+description: Migrates PocketMine-MP account data upon changing Xbox Live usernames.
