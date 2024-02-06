@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace NickteeChunky\AccountMigrator;
 
-use AccountMigrator\src\NickteeChunky\AccountMigrator\provider\CustomDatFilePlayerDataProvider;
+use NickteeChunky\AccountMigrator\provider\CustomDatFilePlayerDataProvider;
 use pocketmine\event\EventPriority;
 use pocketmine\event\player\PlayerDataSaveEvent;
 use pocketmine\lang\KnownTranslationFactory;
