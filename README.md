@@ -5,7 +5,7 @@ Migrates PocketMine-MP account data upon changing Xbox Live usernames.
 This plugin stores player data using XUID (Xbox user ID) instead of usernames which can come in handy for players who change their Xbox account usernames and don't want to lose essential player data that PMMP stores (ex: inventory, experience, ender chest, etc.)
 
 ### How it works?
-When a player's data is saved, their old data (if any) is renamed to name.old.dat and that data points only to its matching XUID.
+When a player's data is saved, their old data (if any) is cleared to only store the matching XUID then moved to an the players/old folder.
 A new file is saved using the XUID (instead of the name) which is then loaded instead.
 
 ### Technicalities
