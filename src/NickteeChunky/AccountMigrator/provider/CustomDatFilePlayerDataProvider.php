@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AccountMigrator\src\NickteeChunky\AccountMigrator\provider;
+namespace NickteeChunky\AccountMigrator\provider;
 
 use pocketmine\errorhandler\ErrorToExceptionHandler;
 use pocketmine\nbt\BigEndianNbtSerializer;
