@@ -47,7 +47,7 @@ class Loader extends PluginBase
             Timings::$syncPlayerDataSave->time(function () use ($xuid, $ev): void {
                 $name = $ev->getPlayerName();
                 try {
-                    if ($this->playerDataProvider->hasData($name, false)) {
+                    if (!$this->playerDataProvider->hasData($xuid)) {
                         $this->playerDataProvider->handleOldPlayerData($name, $xuid);
                     }
                     $this->playerDataProvider->saveData($xuid, $ev->getSaveData());
