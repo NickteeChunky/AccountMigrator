@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace NickteeChunky\AccountMigrator\provider;
+namespace AccountMigrator\src\NickteeChunky\AccountMigrator\provider;
 
 use pocketmine\errorhandler\ErrorToExceptionHandler;
 use pocketmine\nbt\BigEndianNbtSerializer;
 use pocketmine\nbt\NbtDataException;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\TreeRoot;
-use pocketmine\player\DatFilePlayerDataProvider;
 use pocketmine\player\Player;
 use pocketmine\player\PlayerDataLoadException;
 use pocketmine\player\PlayerDataProvider;
@@ -21,11 +20,12 @@ use Symfony\Component\Filesystem\Path;
 final class CustomDatFilePlayerDataProvider implements PlayerDataProvider{
 
     public function __construct(
-        private string $path
+        private readonly string $path,
+        private readonly string $oldPath
     ){}
 
     private function getPlayerDataPath(string $username, bool $old = false) : string{
-        return Path::join($this->path, strtolower($username) . ($old ? '.old' : '') .'.dat');
+        return Path::join($old ? $this->oldPath : $this->path, strtolower($username) .'.dat');
     }
 
     private function handleCorruptedPlayerData(string $name) : void{
@@ -38,13 +38,6 @@ final class CustomDatFilePlayerDataProvider implements PlayerDataProvider{
         rename($this->getPlayerDataPath($name), $this->getPlayerDataPath($name, true));
     }
 
-    /**
-     * There is a case where this is technically wrong.
-     * If player1 changes name to player2
-     * player3 changes name to player1 (name got sniped) then logs on for the first time
-     * Server::hasOfflinePlayerData() will return true
-     * There aren't any PM usages of this anyway but this should be kept in mind.
-     */
     public function hasData(string $name, bool $old = true) : bool{
         return file_exists($this->getPlayerDataPath($name)) || ($old && file_exists($this->getPlayerDataPath($name, true)));
     }
